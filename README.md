@@ -1,3 +1,5 @@
-# play-template #
+[![Build Status](https://travis-ci.org/malliina/play-react.svg?branch=master)](https://travis-ci.org/malliina/play-react)
 
-This is an empty [Play Framework](http://www.playframework.com/) project template.
+# play-react
+
+This is a playground.
