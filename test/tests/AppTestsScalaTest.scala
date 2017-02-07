@@ -11,4 +11,9 @@ class AppTestsScalaTest extends TestAppSuite {
     val result = route(app, FakeRequest(GET, "/")).get
     assert(status(result) === 200)
   }
+
+  //  test("run process") {
+  //    val exitValue = new ProcessBuilder("cmd", "/c", "npm").start().waitFor()
+  //    println(exitValue)
+  //  }
 }

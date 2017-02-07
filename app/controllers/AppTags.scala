@@ -12,6 +12,11 @@ class AppTags(webJars: WebJarAssets) extends Tags with PlayTags {
     script(`type` := "text/babel", src := routes.Assets.at("js/react-demo.js"))
   )
 
+  def web = page()(
+    div(id := "app"),
+    script(src := routes.Assets.at("js/bundle.js"))
+  )
+
   private def reactHead = Seq(
     webJarScript("react", "react.js"),
     webJarScript("react", "react-dom.js"),
