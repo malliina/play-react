@@ -10,5 +10,6 @@ target/
 credentials.txt
 logs
 dist
-webpack-demo/dist
-webpack-demo/node_modules
+web/dist
+web/node_modules
+node_modules

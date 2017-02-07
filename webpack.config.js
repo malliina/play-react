@@ -1,18 +1,17 @@
 var path = require('path');
 
 module.exports = {
-  entry: './app/index.js',
+  entry: './web/app/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'public/js')
   },
   module: {
 	loaders: [
 		{
 		  loader: "babel-loader",
-		  // Skip any files outside of your project's `src` directory
 		  include: [
-			path.resolve(__dirname, "app"),
+			path.resolve(__dirname, "web/app"),
 		  ],
 		  // Only run `.js` and `.jsx` files through Babel
 		  test: /\.jsx?$/,
