@@ -23555,24 +23555,6 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/*import _ from 'lodash'; */
-
-var MyComp = _react2.default.createClass({
-    displayName: 'MyComp',
-
-    render: function render() {
-        return _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-                'span',
-                null,
-                'he he'
-            )
-        );
-    }
-});
-
 var MyCompES6 = function (_React$Component) {
     (0, _inherits3.default)(MyCompES6, _React$Component);
 
@@ -23590,7 +23572,7 @@ var MyCompES6 = function (_React$Component) {
                 _react2.default.createElement(
                     'span',
                     null,
-                    'he he!'
+                    'aaa!!!!!!!!!'
                 )
             );
         }
@@ -23601,7 +23583,6 @@ var MyCompES6 = function (_React$Component) {
 function component() {
     var element = document.createElement('div');
 
-    /* lodash is required for the next line to work */
     element.innerHTML = "raw";
 
     return element;

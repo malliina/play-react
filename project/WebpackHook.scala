@@ -8,39 +8,49 @@ object WebpackHook {
 }
 
 class WebpackHook(baseDir: File, log: Logger) extends PlayRunHook {
-  var process: Option[Process] = None
+  val isWindows = sys.props.get("os.name").exists(_.startsWith("Windows"))
+  val prefix = if (isWindows) "cmd /c " else ""
+  var buildProcess: Option[Process] = None
   var watchProcess: Option[Process] = None
 
+  val BuildCommand = "npm run build"
+
   override def beforeStarted() = {
-    process = cmd("npm run build")
+    val process = run(BuildCommand)
+    buildProcess = Option(process)
+    // Blocks so that we only start watching after the initial build is complete
+    val exitValue = process.exitValue()
+    if(exitValue != 0) {
+      sys.error(s"Non-zero exit value from '$BuildCommand': $exitValue.")
+    }
   }
 
   override def afterStarted(addr: InetSocketAddress) = {
-    watchProcess = cmd("npm run build:watch")
+    watchProcess = Option(run("npm run build:watch"))
   }
 
   override def afterStopped() = {
-    log.info("Stopping NPM...")
+    log.info("Stopping npm...")
     exit()
   }
 
   override def onError() = {
-    log.error(s"NPM failure")
+    log.error(s"npm failure")
     exit()
   }
 
   def exit() = {
-    process.foreach(_.destroy())
-    process = None
-    watchProcess.foreach(_.destroy())
+    buildProcess foreach { p =>
+      log info "Stopping npm build..."
+      p.destroy()
+    }
+    buildProcess = None
+    watchProcess foreach { p =>
+      log info "Stopping npm watch..."
+      p.destroy()
+    }
     watchProcess = None
   }
 
-  def cmd(command: String) = {
-    val path = sys.env.getOrElse("Path", "No path defined")
-    log.info(s"Using $path")
-    Option(run(Process(command, baseDir, "PATH" -> path)))
-  }
-
-  def run(builder: sbt.ProcessBuilder) = builder.run(log)
+  def run(command: String) = Process(s"$prefix$command", baseDir).run(log)
 }

@@ -4,7 +4,7 @@ import play.api.http.Writeable
 import play.api.mvc._
 
 class Home(tags: AppTags) extends Controller {
-  def index = okAction(tags.index("Hoi!"))
+  def index = okAction(tags.index("Hoi!!!"))
 
   def react = okAction(tags.react)
 

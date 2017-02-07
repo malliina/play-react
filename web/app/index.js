@@ -1,23 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-/*import _ from 'lodash'; */
-
-let MyComp = React.createClass({
-    render: function () {
-        return (<div><span>he he</span></div>)
-    }
-});
 
 class MyCompES6 extends React.Component {
     render() {
-        return (<div><span>he he!</span></div>)
+        return (<div><span>aaa!!!!!!!!!</span></div>)
     }
 }
 
 function component () {
-  var element = document.createElement('div');
+  let element = document.createElement('div');
 
-  /* lodash is required for the next line to work */
   element.innerHTML = "raw";
 
   return element;
