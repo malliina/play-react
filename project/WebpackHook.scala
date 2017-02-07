@@ -1,7 +1,5 @@
-import java.net.InetSocketAddress
-
 import play.sbt.PlayRunHook
-import sbt.{File, Logger, Process}
+import sbt._
 
 object WebpackHook {
   def apply(baseDir: File, log: Logger) = new WebpackHook(baseDir, log)
@@ -9,44 +7,48 @@ object WebpackHook {
 
 class WebpackHook(baseDir: File, log: Logger) extends PlayRunHook {
   val isWindows = sys.props.get("os.name").exists(_.startsWith("Windows"))
-  val prefix = if (isWindows) "cmd /c " else ""
-  var buildProcess: Option[Process] = None
+  val webpackFile = if (isWindows) "webpack.cmd" else "webpack"
+  val webpackPath = baseDir / "node_modules" / ".bin" / webpackFile
+  val prefix = ""
+  // if (isWindows) "cmd /c " else ""
+  var installProcess: Option[Process] = None
   var watchProcess: Option[Process] = None
 
-  val BuildCommand = "npm run build"
+  val InstallCommand = "npm install"
 
   override def beforeStarted() = {
-    val process = run(BuildCommand)
-    buildProcess = Option(process)
-    // Blocks so that we only start watching after the initial build is complete
-    val exitValue = process.exitValue()
-    if(exitValue != 0) {
-      sys.error(s"Non-zero exit value from '$BuildCommand': $exitValue.")
+    if (!webpackPath.exists()) {
+      log.info(s"File not found: $webpackPath. Running 'npm install'...")
+      val process = run(InstallCommand)
+      installProcess = Option(process)
+      // Blocks so that we only start watching after the install
+      val exitValue = process.exitValue()
+      if (exitValue != 0) {
+        sys.error(s"Non-zero exit value from '$InstallCommand': $exitValue.")
+      }
+      installProcess = None
     }
-  }
 
-  override def afterStarted(addr: InetSocketAddress) = {
     watchProcess = Option(run("npm run build:watch"))
   }
 
   override def afterStopped() = {
-    log.info("Stopping npm...")
     exit()
   }
 
   override def onError() = {
-    log.error(s"npm failure")
+    log.error(s"Play hook failure")
     exit()
   }
 
   def exit() = {
-    buildProcess foreach { p =>
-      log info "Stopping npm build..."
+    installProcess foreach { p =>
+      log info "Stopping npm install..."
       p.destroy()
     }
-    buildProcess = None
+    installProcess = None
     watchProcess foreach { p =>
-      log info "Stopping npm watch..."
+      log info "Stopping webpack watch..."
       p.destroy()
     }
     watchProcess = None

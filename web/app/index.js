@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 class MyCompES6 extends React.Component {
     render() {
-        return (<div><span>aaa!!!!!!!!!</span></div>)
+        return (<div><span>demo</span></div>)
     }
 }
 

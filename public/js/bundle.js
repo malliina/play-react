@@ -23572,7 +23572,7 @@ var MyCompES6 = function (_React$Component) {
                 _react2.default.createElement(
                     'span',
                     null,
-                    'aaa!!!!!!!!!'
+                    'demo'
                 )
             );
         }
