@@ -8,6 +8,8 @@ class Home(tags: AppTags) extends Controller {
 
   def react = okAction(tags.react)
 
+  def sjs = okAction(tags.sjs)
+
   def web = okAction(tags.web)
 
   def okAction[C: Writeable](content: C) = Action(Ok(content))

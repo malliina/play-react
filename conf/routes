@@ -1,5 +1,6 @@
 GET        /                     controllers.Home.index
 GET        /react                controllers.Home.react
+GET        /sjs                  controllers.Home.sjs
 GET        /web                  controllers.Home.web
 GET        /assets/*file         controllers.Assets.at(path = "/public", file)
 GET        /webjars/*file        controllers.WebJarAssets.at(file)

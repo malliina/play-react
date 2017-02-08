@@ -29,7 +29,8 @@ class WebpackHook(baseDir: File, log: Logger) extends PlayRunHook {
       installProcess = None
     }
 
-    watchProcess = Option(run("npm run build:watch"))
+//    watchProcess = Option(run("npm run build:watch"))
+    watchProcess = Option(run(s"$webpackPath --watch"))
   }
 
   override def afterStopped() = {

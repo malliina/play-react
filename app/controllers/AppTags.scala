@@ -1,11 +1,21 @@
 package controllers
 
 import com.malliina.play.tags.{PlayTags, TagPage, Tags}
+import play.api.http.MimeTypes
+import play.api.mvc.Call
 
 import scalatags.Text.all._
 
 class AppTags(webJars: WebJarAssets) extends Tags with PlayTags {
   def index(msg: String) = page()(h1(msg))
+
+  def sjs = page(reactHead)(
+    h1("Scala.js"),
+    div(id := "app"),
+    div(id := "app2"),
+    jsAssetAt("frontend-fastopt.js"),
+    jsAssetAt("frontend-launcher.js")
+  )
 
   def react = page(reactHead)(
     div(id := "app"),
@@ -29,11 +39,15 @@ class AppTags(webJars: WebJarAssets) extends Tags with PlayTags {
   def webJarScript(webJar: String, path: String) =
     jsScript(routes.WebJarAssets.at(webJars.fullPath(webJar, path)))
 
-  private def page(heads: Modifier*)(content: Modifier*) =
+  def jsAssetAt(file: String) = jsAsset(routes.Assets.at(file))
+
+  def jsAsset(file: Call) = script(src := file.toString, `type` := MimeTypes.JAVASCRIPT)
+
+  private def page(heads: Modifier*)(bodyContent: Modifier*) =
     TagPage(
       html(
         head(meta(charset := "UTF-8"), heads),
-        body(content)
+        body(bodyContent)
       )
     )
 }
