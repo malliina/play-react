@@ -23555,8 +23555,113 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var MyCompES6 = function (_React$Component) {
-    (0, _inherits3.default)(MyCompES6, _React$Component);
+var Clock = function (_React$Component) {
+    (0, _inherits3.default)(Clock, _React$Component);
+
+    function Clock(props) {
+        (0, _classCallCheck3.default)(this, Clock);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (Clock.__proto__ || (0, _getPrototypeOf2.default)(Clock)).call(this, props));
+
+        _this.state = { date: new Date() };
+        _this.prefix = props.prefix ? props.prefix : "It is";
+        return _this;
+    }
+
+    (0, _createClass3.default)(Clock, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            this.timerID = setInterval(function () {
+                return _this2.tick();
+            }, 1000);
+        }
+    }, {
+        key: "componentWillUnmount",
+        value: function componentWillUnmount() {
+            clearInterval(this.timerID);
+        }
+    }, {
+        key: "tick",
+        value: function tick() {
+            this.setState({ date: new Date() });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "p",
+                null,
+                this.prefix,
+                " ",
+                this.state.date.toLocaleTimeString(),
+                "."
+            );
+        }
+    }]);
+    return Clock;
+}(_react2.default.Component);
+
+var Button = function (_React$Component2) {
+    (0, _inherits3.default)(Button, _React$Component2);
+
+    function Button(props) {
+        (0, _classCallCheck3.default)(this, Button);
+
+        var _this3 = (0, _possibleConstructorReturn3.default)(this, (Button.__proto__ || (0, _getPrototypeOf2.default)(Button)).call(this, props));
+
+        _this3.handleClick = _this3.handleClick.bind(_this3);
+        _this3.state = { isOn: true };
+        return _this3;
+    }
+
+    (0, _createClass3.default)(Button, [{
+        key: "handleClick",
+        value: function handleClick() {
+            this.setState(function (prev) {
+                return {
+                    isOn: !prev.isOn
+                };
+            });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "button",
+                { onClick: this.handleClick },
+                this.state.isOn ? "ON" : "OFF"
+            );
+        }
+    }]);
+    return Button;
+}(_react2.default.Component);
+
+var App = function (_React$Component3) {
+    (0, _inherits3.default)(App, _React$Component3);
+
+    function App() {
+        (0, _classCallCheck3.default)(this, App);
+        return (0, _possibleConstructorReturn3.default)(this, (App.__proto__ || (0, _getPrototypeOf2.default)(App)).apply(this, arguments));
+    }
+
+    (0, _createClass3.default)(App, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(Clock, null),
+                _react2.default.createElement(Button, null)
+            );
+        }
+    }]);
+    return App;
+}(_react2.default.Component);
+
+var MyCompES6 = function (_React$Component4) {
+    (0, _inherits3.default)(MyCompES6, _React$Component4);
 
     function MyCompES6() {
         (0, _classCallCheck3.default)(this, MyCompES6);
@@ -23564,15 +23669,15 @@ var MyCompES6 = function (_React$Component) {
     }
 
     (0, _createClass3.default)(MyCompES6, [{
-        key: 'render',
+        key: "render",
         value: function render() {
             return _react2.default.createElement(
-                'div',
+                "div",
                 null,
                 _react2.default.createElement(
-                    'span',
+                    "span",
                     null,
-                    'demo'
+                    "demo"
                 )
             );
         }
@@ -23580,17 +23685,7 @@ var MyCompES6 = function (_React$Component) {
     return MyCompES6;
 }(_react2.default.Component);
 
-function component() {
-    var element = document.createElement('div');
-
-    element.innerHTML = "raw";
-
-    return element;
-}
-
-document.body.appendChild(component());
-
-_reactDom2.default.render(_react2.default.createElement(MyCompES6), document.getElementById('app'));
+_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app'));
 
 /***/ })
 /******/ ]);
