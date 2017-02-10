@@ -34,7 +34,7 @@ module.exports = {
                 // Options to configure babel with
                 query: {
                     plugins: [
-                        ["transform-react-jsx", { "pragma":"h" }]
+                        ["transform-react-jsx", {"pragma": "h"}]
                     ],
                     presets: ['es2015'],
                 }
