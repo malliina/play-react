@@ -54,11 +54,11 @@ class App extends Component {
     render(props, state) {
         return (
             <div>
-                <Clock/>
+                <Clock prefix={props.clockPrefix}/>
                 <Button/>
             </div>
         )
     }
 }
 
-render(<App/>, document.body);
+render(<App clockPrefix="The time"/>, document.body);

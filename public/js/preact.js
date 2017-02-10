@@ -678,7 +678,7 @@ var App = function (_Component3) {
             return (0, _preact.h)(
                 "div",
                 null,
-                (0, _preact.h)(Clock, null),
+                (0, _preact.h)(Clock, { prefix: props.clockPrefix }),
                 (0, _preact.h)(Button, null)
             );
         }
@@ -687,7 +687,7 @@ var App = function (_Component3) {
     return App;
 }(_preact.Component);
 
-(0, _preact.render)((0, _preact.h)(App, null), document.body);
+(0, _preact.render)((0, _preact.h)(App, { clockPrefix: "The time" }), document.body);
 
 /***/ })
 
