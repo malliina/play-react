@@ -60,12 +60,6 @@ class App extends React.Component {
     }
 }
 
-class MyCompES6 extends React.Component {
-    render() {
-        return (<div><span>demo</span></div>)
-    }
-}
-
 ReactDOM.render(
     <App/>,
     document.getElementById('app')

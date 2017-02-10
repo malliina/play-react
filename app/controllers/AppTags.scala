@@ -17,14 +17,18 @@ class AppTags(webJars: WebJarAssets) extends Tags with PlayTags {
     jsAssetAt("frontend-launcher.js")
   )
 
-  def react = page(reactHead)(
+  def babel = page(reactHead)(
     div(id := "app"),
     script(`type` := "text/babel", src := routes.Assets.at("js/react-demo.js"))
   )
 
-  def web = page()(
+  def react = jsApp("js/react.js")
+
+  def preact = jsApp("js/preact.js")
+
+  private def jsApp(jsFile: String) = page()(
     div(id := "app"),
-    script(src := routes.Assets.at("js/bundle.js"))
+    script(src := routes.Assets.at(jsFile))
   )
 
   private def reactHead = Seq(

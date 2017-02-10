@@ -6,11 +6,13 @@ import play.api.mvc._
 class Home(tags: AppTags) extends Controller {
   def index = okAction(tags.index("Hoi!!!"))
 
-  def react = okAction(tags.react)
+  def babel = okAction(tags.babel)
 
   def sjs = okAction(tags.sjs)
 
-  def web = okAction(tags.web)
+  def react = okAction(tags.react)
+
+  def preact = okAction(tags.preact)
 
   def okAction[C: Writeable](content: C) = Action(Ok(content))
 }
